@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="getQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="plusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$<span class="pay" id="costOfApple">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minusBtn2" class="btn btn-default minusBtn"><i class="fas fa-minus"></i></button>
+                           <input id="getQuantity2" type="text" class="form-control text-center getQuantity" value="1">
+                           <button id="plusBtn2" class="btn btn-default plusBtn"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$<span class="pay" id="costOfElement2">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                        <h5>$<span id="subTotalCost">1278</span></h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$1278</h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,122 @@
          </div>
       </div>
    </section>
+
+   <script>
+      // -------------------------for element 1----------------------------
+      // plus button handler
+      const plusBtn = document.getElementById("plusBtn");
+      plusBtn.addEventListener("click", function(){
+         document.getElementById("getQuantity").value = quantity("getQuantity", 1);
+         
+         const cost = perCost("getQuantity", 1219);
+         document.getElementById("costOfApple").innerText = cost;
+      })
+      // minus button event handler
+      const minusBtn = document.getElementById("minusBtn");
+      minusBtn.addEventListener("click", function(){
+         document.getElementById("getQuantity").value = quantity("getQuantity", -1);
+
+         const cost = perCost("getQuantity", 1219);
+         document.getElementById("costOfApple").innerText = cost;
+
+      })
+
+      // cost handler
+
+      function perCost(inputId, costOfOne){
+         return parseFloat(document.getElementById(inputId).value) * costOfOne;
+      }
+      function quantity(id, num){
+         const getQuantity = parseFloat(document.getElementById(id).value);
+         const neatQuantity = getQuantity + num;
+         return neatQuantity;
+         
+      }
+
+      // ------------------------for element 2-------------------------------
+      const plusBtn2 = document.getElementById("plusBtn2");
+      plusBtn2.addEventListener("click", function(){
+         document.getElementById("getQuantity2").value = quantity("getQuantity2", 1);
+         
+         const cost = perCost("getQuantity2", 59);
+         document.getElementById("costOfElement2").innerText = cost;
+      })
+      // minus button event handler
+      const minusBtn2 = document.getElementById("minusBtn2");
+      minusBtn2.addEventListener("click", function(){
+         document.getElementById("getQuantity2").value = quantity("getQuantity2", -1);
+         
+         const cost = perCost("getQuantity2", 59);
+         document.getElementById("costOfElement2").innerText = cost;
+
+      })
+
+      // ----subTotal cost----
+      const subTotalCost = parseFloat(document.getElementById("subTotalCost").innerText);
+      const pays = document.getElementsByClassName("pay");
+      var subTotal = 0;
+      for( let i=0; i<pays.length; i++){
+         var payment = parseFloat(pays[i].innerText);
+         subTotal += payment;
+         console.log(subTotal);
+      }
+      document.getElementById("subTotalCost").innerText = subTotal;
+      
+      
+
+   </script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// plus button event handler
+const plusBtn = document.getElementById("plusBtn");
+plusBtn.addEventListener("click", function(){
+   // const totalQuantity = quantity("getQuantity", 1);
+   document.getElementById("getQuantity").value = quantity("getQuantity", 1);
+   
+   // const costOfApple = parseFloat(document.getElementById("costOfApple").innerText);
+   // document.getElementById("costOfApple").innerText = costOfApple*parseFloat(totalQuantity);
+   
+   const cost = perCost("getQuantity", 1219);
+   document.getElementById("costOfApple").innerText = cost;
+})
+// minus button event handler
+const minusBtn = document.getElementById("minusBtn");
+minusBtn.addEventListener("click", function(){
+   quantity("getQuantity", -1);
+
+})
+
+// cost handler
+
+function perCost(inputId, costOfOne){
+   return parseFloat(document.getElementById(inputId).value) * costOfAny;
+}
+function quantity(id, num){
+   const getQuantity = parseFloat(document.getElementById(id).value);
+   const neatQuantity = getQuantity + num;
+   return neatQuantity;
+   // document.getElementById(id).value = neatQuantity;
+   // console.log(neatQuantity);
+}
